@@ -14,7 +14,6 @@ const Menu = ({ method, options, currentPane }) => {
             ))
               }
             </div>
-         
         ):<></>
         }
         {isOpen?(<div className="hidden">{currentPane}</div>): <div className="rounded-md font-bold w-fit">{currentPane}</div>}
