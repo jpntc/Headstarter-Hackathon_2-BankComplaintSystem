@@ -4,7 +4,7 @@ import React, {useState}  from 'react'
 const Menu = ({ method, options, currentPane }) => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="bg-blue-200 p-2 rounded-md w-56"onClick={()=>setIsOpen(!isOpen)}>
+    <div className="bg-blue-200 p-2 rounded-md h-fit min-w-fit text-nowrap"onClick={()=>setIsOpen(!isOpen)}>
         {
           isOpen?(
             <div>
