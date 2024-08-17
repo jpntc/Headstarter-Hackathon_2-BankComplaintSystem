@@ -1,0 +1,55 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# PostgreSQL
+*.pgsql
+pgdata/
+pg_dump.sql
+
+# Build and Dist files
+/build
+/dist
+/out
+coverage/
+.cache/
+
+# React
+/build
+/.next
+.next/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# MacOS
+.DS_Store
+
+# Misc
+Thumbs.db
+*.bak
