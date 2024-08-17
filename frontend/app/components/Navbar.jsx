@@ -16,8 +16,6 @@ const Navbar = () => {
         <p className="text-lg md:text-xl font-extrabold">Complaint System</p>
       </div>
       <div className="flex justify-evenly items-center text-md md:text-lg font-bold">
-        <p className="mr-2">Login</p>
-        <p>SignUp</p>
       </div>
     </nav>
   );
