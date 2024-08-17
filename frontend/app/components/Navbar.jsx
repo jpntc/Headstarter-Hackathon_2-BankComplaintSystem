@@ -1,7 +1,7 @@
-"use client"
-import React from 'react'
-import Image from "next/image"
-import Link from "next/link"
+"use client";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 const Navbar = () => {
   return (
     <nav className="p-2 flex justify-between w-full mb-20">
@@ -19,6 +19,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
