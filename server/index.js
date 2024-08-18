@@ -8,11 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
+    user: 'postgres',
+    host: 'localhost',
+    database: 'TestDB',
+    password: '123w123w',
+    port: 5432,
 });
 
 app.get('/test', async (req, res) => {
@@ -21,7 +21,7 @@ app.get('/test', async (req, res) => {
 })
 
 app.get('/employees', async (req, res) => {
-    const user = await pool.query('SELECT * FROM employee');
+    const user = await pool.query('SELECT * FROM employees');
     res.json(user.rows);
 });
 
@@ -51,12 +51,12 @@ app.post('/signup', async (req, res) => {
   });
 
 app.post('/api/complaints', async (req, res) => {
-  const { userId, type, description } = req.body;
+  const { user_id, type, description } = req.body;
 
   try {
     const complaintRes = await pool.query(
       'INSERT INTO complaints (user_id, type, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [userId, main_type, sub_type, description, created_at]
+      [user_id, main_type, sub_type, description, created_at]
     );
 
     res.json(complaintRes.rows[0]);
@@ -70,6 +70,7 @@ app.get('/api/complaints/history', async (req, res) => {
     const { user_id, main_type, sub_type } = req.query;
   
     try {
+      console.log(user_id);
       let query = ("SELECT * FROM complaints WHERE user_id = $1");
       const queryParams = [user_id];
   
