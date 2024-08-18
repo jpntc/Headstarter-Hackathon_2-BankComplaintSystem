@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 
-const Menu = ({ method, options, currentPane }) => {
+const Menu = ({ method, options, currentPane}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className="bg-white p-2 rounded-lg h-fit w-2/12 text-nowrap border-solid border-2"
+      className="bg-white p-2 rounded-lg h-fit w-fit text-nowrap border-solid border-2"
       onClick={() => setIsOpen(!isOpen)}
     >
       {isOpen ? (
