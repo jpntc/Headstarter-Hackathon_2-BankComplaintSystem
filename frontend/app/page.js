@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col md:px-24">
       <Navbar className="fixed top-0 left-0 border" />
-        <div className="flex px-4 mt-10">
+        <div className="flex px-4">
           <Menu method={setPane} options={panes} currentPane={pane} />
           {pane == panes[0] ? (
             <Input />

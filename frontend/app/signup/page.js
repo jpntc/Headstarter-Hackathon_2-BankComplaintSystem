@@ -1,10 +1,40 @@
 "use client";
 import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Signup = () => {
+  // const [name, setName] = useState({
+  //   first: "",
+  //   last: "",
+  // });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // function handleName(event) {
+  //   const input = event.target.value;
+  //   const fieldName = event.target.name;
+
+  //   switch (fieldName) {
+  //     case "firstName":
+  //       setName((prev) => {
+  //         return {
+  //           first: input,
+  //           last: prev.last,
+  //         };
+  //       });
+  //       break;
+  //     case "lastName":
+  //       setName((prev) => {
+  //         return {
+  //           first: prev.first,
+  //           last: input,
+  //         };
+  //       });
+  //       break;
+  //   }
+  // }
 
   function handleEmail(event) {
     const input = event.target.value;
@@ -21,9 +51,17 @@ const Signup = () => {
     setConfirmPassword(input);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault;
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
     try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      window.location.href = "/";
       //await create user
       //If user isnt in database AND password === confirmPassword
       //    Add user to database
@@ -41,6 +79,20 @@ const Signup = () => {
           className="w-8/12 flex flex-col items-center"
           onSubmit={handleSubmit}
         >
+          {/* <input
+            className="rounded-lg mb-2 text-center bg-neutral-500 p-2"
+            placeholder="First Name"
+            name="firstName"
+            value={name.first}
+            onChange={handleName}
+          ></input>
+          <input
+            className="rounded-lg mb-2 text-center bg-neutral-500 p-2"
+            placeholder="Last Name"
+            name="lastName"
+            value={name.last}
+            onChange={handleName}
+          ></input> */}
           <input
             className="rounded-lg mb-2 text-center bg-neutral-500 p-2"
             placeholder="Email"

@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,9 +16,11 @@ function Login() {
     setPassword(input);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault;
+  async function handleSubmit(event) {
+    event.preventDefault();
     try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = "/";
       //await sign in
       //If successful, bring to home page with credentials
     } catch (error) {
