@@ -8,16 +8,16 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
 });
 
-app.get('/test', async (req, res) => {
-    const user = await pool.query('SELECT * FROM users');
-    res.json(user.rows[0]);
+app.get('/employees', async (req, res) => {
+    const user = await pool.query('SELECT * FROM employee');
+    res.json(user.rows);
 });
 
 app.post('/signup', async (req, res) => {
@@ -81,8 +81,48 @@ app.get('/api/complaints/history', async (req, res) => {
       query += ' ORDER BY created_at DESC';
   
       const historyRes = await pool.query(query, queryParams);
-  
+      console.log(query, queryParams);
       res.json(historyRes.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+  app.get('/api/complaints/employee/history', async (req, res) => {
+    const { userId, main_type, sub_type } = req.query;
+  
+    try {
+      let query = 'SELECT * FROM complaints';
+      const queryParams = [];
+      
+      if (main_type != null || sub_type != null){
+        query += ' WHERE';
+      }
+      if (main_type) {
+        query += ' main_type = $1';
+        queryParams.push(main_type);
+      }
+  
+      if (sub_type) {
+        if (main_type){
+            query += ' AND';
+        }
+        query += ` sub_type = $${queryParams.length + 1}`;
+        queryParams.push(sub_type);
+      }
+  
+      query += ' ORDER BY created_at DESC';
+      console.log(main_type, sub_type, userId, queryParams.length);
+      if (queryParams.length != 0) {
+        const historyRes = await pool.query(query, queryParams);
+        res.json(historyRes.rows);
+      }
+      else {
+        const historyRes = await pool.query(query);
+        res.json(historyRes.rows);
+      }
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
