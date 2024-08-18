@@ -8,7 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-
+    user: 'postgres',
+    host: 'localhost',
+    database: 'TestDB',
+    password: '123w123w',
+    port: 5432,
 });
 
 app.get('/test', async (req, res) => {
@@ -66,7 +70,7 @@ app.get('/api/complaints/history', async (req, res) => {
     const { user_id, main_type, sub_type } = req.query;
   
     try {
-      let query = 'SELECT * FROM complaints WHERE user_id = $1';
+      let query = ("SELECT * FROM complaints WHERE user_id = $1");
       const queryParams = [user_id];
   
       if (main_type) {
@@ -80,10 +84,11 @@ app.get('/api/complaints/history', async (req, res) => {
       }
   
       query += ' ORDER BY created_at DESC';
-  
+      
       const historyRes = await pool.query(query, queryParams);
-      console.log(query, queryParams);
       res.json(historyRes.rows);
+
+      console.log(query, queryParams);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
