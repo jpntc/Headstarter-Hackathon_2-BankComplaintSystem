@@ -114,101 +114,99 @@ const Pane = () => {
   };
 
   const getHistory = async () => {
-    // try {
-    //   const endpoint = `http://localhost:5000/api/complaints/history?user_id=${userId}`;
-    //   console.log(endpoint);
-    //   const response = await fetch(endpoint);
-    //   const data = await response.json();
-    //   if (response.status === 200) {
-    //     console.log("history data", data);
-    //     setHistory(data);
-    //     setIsOpen(true);
-    //   } else {
-    //     console.log(response.error);
-    //   }
-    // } catch (error) {
-    //   console.log("Error getting user history: " + error);
-    // }
-   const complaints = [
-     {
-       main_type: "Products",
-       sub_type: "Banking",
-       created_at: "2024-08-18 10:30 AM",
-       description:
-         "Issue with the banking feature not processing transactions correctly.",
-     },
-     {
-       main_type: "Solutions",
-       sub_type: "E-commerce",
-       created_at: "2024-08-17 02:15 PM",
-       description:
-         "E-commerce integration is causing delays in product listing updates.",
-     },
-     {
-       main_type: "Account",
-       sub_type: "Email",
-       created_at: "2024-08-16 09:45 AM",
-       description:
-         "Unable to update the email address associated with the account.",
-     },
-     {
-       main_type: "Website",
-       sub_type: "Website",
-       created_at: "2024-08-15 11:00 AM",
-       description:
-         "The website is experiencing slow loading times on mobile devices.",
-     },
-     {
-       main_type: "Products",
-       sub_type: "Analytics",
-       created_at: "2024-08-14 03:20 PM",
-       description:
-         "Analytics dashboard is not showing the correct data for the last quarter.",
-     },
-     {
-       main_type: "Solutions",
-       sub_type: "Enterprise Business",
-       created_at: "2024-08-13 01:10 PM",
-       description:
-         "Enterprise-level solution is not scaling well with increased user load.",
-     },
-     {
-       main_type: "Account",
-       sub_type: "Password",
-       created_at: "2024-08-12 04:55 PM",
-       description: "Password reset emails are not being received by users.",
-     },
-     {
-       main_type: "Products",
-       sub_type: "Chargeback Resolution",
-       created_at: "2024-08-11 07:35 AM",
-       description:
-         "Chargeback cases are taking too long to resolve in the system.",
-     },
-     {
-       main_type: "Website",
-       sub_type: "Website",
-       created_at: "2024-08-10 08:20 PM",
-       description: "Website navigation menu is broken on certain browsers.",
-     },
-     {
-       main_type: "Products",
-       sub_type: "Integrations",
-       created_at: "2024-08-09 05:50 PM",
-       description:
-         "Third-party integrations are not syncing data as expected.",
-     },
-   ];
-  setHistory(complaints)
-  setIsOpen(true);
-  
+    try {
+      const endpoint = `http://localhost:5000/api/complaints/history?user_id=${userId}`;
+      console.log(endpoint);
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log("history data", data);
+        setHistory(data);
+        setIsOpen(true);
+      } else {
+        console.log(response.error);
+      }
+    } catch (error) {
+      console.log("Error getting user history: " + error);
+    }
+  //  const complaints = [
+  //    {
+  //      main_type: "Products",
+  //      sub_type: "Banking",
+  //      created_at: "2024-08-18 10:30 AM",
+  //      description:
+  //        "Issue with the banking feature not processing transactions correctly.",
+  //    },
+  //    {
+  //      main_type: "Solutions",
+  //      sub_type: "E-commerce",
+  //      created_at: "2024-08-17 02:15 PM",
+  //      description:
+  //        "E-commerce integration is causing delays in product listing updates.",
+  //    },
+  //    {
+  //      main_type: "Account",
+  //      sub_type: "Email",
+  //      created_at: "2024-08-16 09:45 AM",
+  //      description:
+  //        "Unable to update the email address associated with the account.",
+  //    },
+  //    {
+  //      main_type: "Website",
+  //      sub_type: "Website",
+  //      created_at: "2024-08-15 11:00 AM",
+  //      description:
+  //        "The website is experiencing slow loading times on mobile devices.",
+  //    },
+  //    {
+  //      main_type: "Products",
+  //      sub_type: "Analytics",
+  //      created_at: "2024-08-14 03:20 PM",
+  //      description:
+  //        "Analytics dashboard is not showing the correct data for the last quarter.",
+  //    },
+  //    {
+  //      main_type: "Solutions",
+  //      sub_type: "Enterprise Business",
+  //      created_at: "2024-08-13 01:10 PM",
+  //      description:
+  //        "Enterprise-level solution is not scaling well with increased user load.",
+  //    },
+  //    {
+  //      main_type: "Account",
+  //      sub_type: "Password",
+  //      created_at: "2024-08-12 04:55 PM",
+  //      description: "Password reset emails are not being received by users.",
+  //    },
+  //    {
+  //      main_type: "Products",
+  //      sub_type: "Chargeback Resolution",
+  //      created_at: "2024-08-11 07:35 AM",
+  //      description:
+  //        "Chargeback cases are taking too long to resolve in the system.",
+  //    },
+  //    {
+  //      main_type: "Website",
+  //      sub_type: "Website",
+  //      created_at: "2024-08-10 08:20 PM",
+  //      description: "Website navigation menu is broken on certain browsers.",
+  //    },
+  //    {
+  //      main_type: "Products",
+  //      sub_type: "Integrations",
+  //      created_at: "2024-08-09 05:50 PM",
+  //      description:
+  //        "Third-party integrations are not syncing data as expected.",
+  //    },
+  //  ];
+
   };
 
   const closeModal = () => setIsOpen(false);
 
   return (
     <div className="p-2 mx-2 flex flex-col h-full w-full rounded-lg">
-      <p className="text-xl md:text-2xl font-bold text-center mb-4">
+      <p className="text-xl md:text-5xl font-extrabold text-center mb-4">
         File a Complaint
       </p>
       <div className="w-full border-4 rounded-md border-neutral-300 flex h-96 border-solid border-2">
@@ -256,15 +254,17 @@ const Pane = () => {
 
       {isOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 w-full">
-          <div className="bg-white w-1/2 rounded-lg shadow-lg p-4 relative max-w-lg border border-red-300">
+          <div className="bg-white w-screen h-3/4 mx-44 rounded-lg shadow-lg p-4 relative border border-red-300 overflow-y-auto">
             <button
               className="absolute top-2 right-2 text-gray-600 font-bold text-lg"
               onClick={closeModal}
             >
-              &times;
+             X
             </button>
-            <h2 className="text-lg font-bold mb-4">Complaint History</h2>
-            <div className="flex flex-col w-full h-96  overflow-y-auto">
+            <h2 className="text-xl font-extra-bold mb-4 text-center">
+              Complaint History
+            </h2>
+            <div className="flex flex-col w-full   ">
               {history.length > 0 ? (
                 history.map((complaint, index) => (
                   <div className="flex flex-col p-2 border-2 m-2" key={index}>
