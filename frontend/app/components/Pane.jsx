@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Menu from "./Menu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
+
+
 const categories = ["Products", "Solutions", "Account", "Website"];
 
 const productProblems = [
@@ -28,7 +30,10 @@ const Pane = () => {
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
   const [userId, setUserId] = useState(-999);
+<<<<<<< HEAD
   const [submitted, setSubmitted] = useState("");
+=======
+>>>>>>> 179140da73500e4d13d5cf105276c4e8cd00c0bc
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -79,6 +84,7 @@ const Pane = () => {
       );
       return;
     }
+<<<<<<< HEAD
     if (userId == -999) {
       console.log("Error with the user id returned by firebase");
       return;
@@ -114,6 +120,20 @@ const Pane = () => {
       console.log("Error making the request to db: " + error)
     }
 
+=======
+    if (userID == -999) {
+      console.log("Error with the user id returned by firebase");
+      return;
+    }
+
+    const request = {
+      userId,
+      category,
+      subCategory,
+      input,
+      dateNTime,
+    };
+>>>>>>> 179140da73500e4d13d5cf105276c4e8cd00c0bc
   };
 
   return (
