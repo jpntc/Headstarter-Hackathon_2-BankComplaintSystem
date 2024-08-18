@@ -124,9 +124,9 @@ const Pane = () => {
   return (
     <div className="p-2 mx-2 flex flex-col h-full w-full rounded-lg">
       <p className="text-xl md:text-2xl font-bold text-center mb-8">
-        File a Complaint
+        Complaint Form
       </p>
-      <div className="w-full border-4 rounded-md border-amber-300 flex h-96 p-2 ">
+      <div className="w-full rounded-md border-solid border-neutral-200 border-4 flex h-96">
         <div className="flex flex-col w-1/4 h-full justify-between p-8">
           <div className="flex flex-col">
             <Menu
@@ -176,7 +176,7 @@ const Pane = () => {
         </div>
         <div className="flex flex-col w-full h-full">
           <textarea
-            className="overflow-y-auto w-full h-full mx-2 rounded-sm border-solid border-2 p-2"
+            className="overflow-y-auto w-full h-full rounded-sm p-2"
             type="text"
             placeholder={"Enter a complaint to be processed here."}
             onChange={handleInput}
