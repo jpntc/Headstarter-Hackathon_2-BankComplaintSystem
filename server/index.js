@@ -8,14 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'TestDB',
-    password: '123w123w',
-    port: 5432,
+
 });
-
-
 
 app.get('/test', async (req, res) => {
     const user = await pool.query('SELECT * FROM users');
@@ -69,11 +63,11 @@ app.post('/api/complaints', async (req, res) => {
 });
 
 app.get('/api/complaints/history', async (req, res) => {
-    const { userId, main_type, sub_type } = req.query;
+    const { user_id, main_type, sub_type } = req.query;
   
     try {
       let query = 'SELECT * FROM complaints WHERE user_id = $1';
-      const queryParams = [userId];
+      const queryParams = [user_id];
   
       if (main_type) {
         query += ' AND main_type = $2';
@@ -97,7 +91,7 @@ app.get('/api/complaints/history', async (req, res) => {
   });
 
   app.get('/api/complaints/employee/history', async (req, res) => {
-    const { userId, main_type, sub_type } = req.query;
+    const { user_id, main_type, sub_type } = req.query;
   
     try {
       let query = 'SELECT * FROM complaints';
@@ -120,7 +114,7 @@ app.get('/api/complaints/history', async (req, res) => {
       }
   
       query += ' ORDER BY created_at DESC';
-      console.log(main_type, sub_type, userId, queryParams.length);
+      console.log(main_type, sub_type, user_id, queryParams.length);
       if (queryParams.length != 0) {
         const historyRes = await pool.query(query, queryParams);
         res.json(historyRes.rows);
