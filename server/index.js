@@ -17,17 +17,12 @@ const pool = new Pool({
 });
 
 app.post('/api/complaints', async (req, res) => {
-  const { userId, title, description } = req.body;
+  const { userId, type, description } = req.body;
 
   try {
     const complaintRes = await pool.query(
-      'INSERT INTO complaints (user_id, title, description) VALUES ($1, $2, $3) RETURNING *',
-      [userId, title, description]
-    );
-
-    await pool.query(
-      'INSERT INTO complaint_history (complaint_id, status) VALUES ($1, $2)',
-      [complaintRes.rows[0].id, 'Pending']
+      'INSERT INTO complaints (user_id, type, description) VALUES ($1, $2, $3, $4) RETURNING *',
+      [userId, type, description, created_at]
     );
 
     res.json(complaintRes.rows[0]);
