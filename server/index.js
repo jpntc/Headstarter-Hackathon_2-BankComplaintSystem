@@ -1,10 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
-require('dotenv').config();
 const cors = require('cors');
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
@@ -14,6 +13,11 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
+});
+
+app.get('/test', async (req, res) => {
+    const user = await pool.query('SELECT * FROM users');
+    res.json(user.rows[0]);
 });
 
 app.post('/signup', async (req, res) => {
