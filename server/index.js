@@ -8,15 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
+
 });
 
 app.get('/employees', async (req, res) => {
-    const user = await pool.query('SELECT * FROM employee');
+    const user = await pool.query('SELECT * FROM employees');
     res.json(user.rows);
 });
 
@@ -50,7 +46,7 @@ app.post('/api/complaints', async (req, res) => {
 
   try {
     const complaintRes = await pool.query(
-      'INSERT INTO complaints (user_id, type, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO complaints (user_id, main_type, sub_type, description) VALUES ($1, $2, $3, $4) RETURNING *',
       [userId, main_type, sub_type, description, created_at]
     );
 
