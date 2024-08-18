@@ -29,26 +29,23 @@ function Login() {
   }
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="flex flex-col w-8/12 items-center bg-neutral-900 rounded-lg p-10">
-        <header className="text-4xl mb-10">Login Page</header>
-        <form
-          className="w-8/12 flex flex-col items-center"
-          onSubmit={handleSubmit}
-        >
+    <div className="w-screen h-screen flex justify-center items-center bg-amber-50">
+      <div className="flex flex-col w-3/12 items-center bg-white rounded-full p-10 border-solid border-2 text-black">
+        <header className="text-4xl mb-10 font-medium">Login Page</header>
+        <form className="flex flex-col items-center" onSubmit={handleSubmit}>
           <input
-            className="rounded-lg mb-2 text-center bg-neutral-500 p-2"
+            className="rounded-lg mb-2 text-center bg-white p-2 border-solid border-2"
             placeholder="Email"
             value={email}
             onChange={handleEmail}
           ></input>
           <input
-            className="rounded-lg mb-2 text-center bg-neutral-500 p-2"
+            className="rounded-lg mb-2 text-center bg-white p-2 border-solid border-2"
             placeholder="Password"
             value={password}
             onChange={handlePassword}
           ></input>
-          <button className="bg-neutral-700 rounded-lg mt-2 w-4/12">
+          <button className="bg-amber-100 rounded-lg mt-2 w-4/12 border-solid border-2">
             Submit
           </button>
         </form>
