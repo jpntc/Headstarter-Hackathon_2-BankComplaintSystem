@@ -95,6 +95,7 @@ const Pane = () => {
       description: input,
       created_at: dateNTime,
     };
+    console.log(data)
     const endpoint = process.env.SERVER_ADDRESS + "/home";
 
     try{
@@ -117,19 +118,7 @@ const Pane = () => {
     }catch(error){
       console.log("Error making the request to db: " + error)
     }
-
-    if (userID == -999) {
-      console.log("Error with the user id returned by firebase");
-      return;
-    }
-
-    const request = {
-      userId,
-      category,
-      subCategory,
-      input,
-      dateNTime,
-    };
+    return
   };
 
   return (
