@@ -6,7 +6,7 @@ const Menu = ({ method, options, currentPane }) => {
 
   return (
     <div
-      className="relative bg-white p-2 rounded-lg h-fit w-2/12 text-nowrap border-solid border-2 min-w-44 hover:bg-amber-200 duration-300 cursor-pointer"
+      className="relative bg-white p-2 rounded-lg h-fit w-2/12 text-nowrap border-solid border-2 min-w-44 hover:bg-amber-200 duration-300 cursor-pointer mb-2"
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="rounded-md font-bold w-fit">{currentPane}</div>

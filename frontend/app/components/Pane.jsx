@@ -26,11 +26,10 @@ const accountProblems = ["Email", "Password"];
 
 const Pane = () => {
   const [input, setInput] = useState("");
-  const [showDiv, setShowDiv] = useState(false);
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
   const [userId, setUserId] = useState(-999);
-
+  const [open, setIsOpen] = useState(false)
   const [submitted, setSubmitted] = useState("");
 
 
@@ -96,8 +95,7 @@ const Pane = () => {
       created_at: dateNTime,
     };
     console.log(data)
-    const endpoint = process.env.SERVER_ADDRESS + "/home";
-
+    const endpoint = "http://localhost:5000/api/complaints";
     try{
       const response = await fetch(endpoint, {
       method: "POST",
@@ -108,12 +106,13 @@ const Pane = () => {
     });
 
     if (response.status === 200){
-      const responseObj = await response.json()
+      const responseObj = await response.json();
+      console.log(response.message)
       setSubmitted("Submitted")
       alert("Your complaint has been submitted.")
       return
     }else{
-      console.log(response.error)
+      console.log("Error" + response.error)
     }
     }catch(error){
       console.log("Error making the request to db: " + error)
@@ -133,32 +132,16 @@ const Pane = () => {
               method={setCategory}
               options={categories}
               currentPane={category}
-              className="bg-amber-100 p-2"
+              className="bg-amber-100 p-2 "
             />
-            <div
-              className="relative mt-2 bg-amber-100 p-2"
-              onMouseEnter={() => handleMouseEnter(category)}
-            >
-              {subCategory}
-              {showDiv && category ? (
-                <div
-                  className="bg-white absolute top-full shadow-lg p-4 justify-center max-h-56 overflow-x-auto border w-fit"
-                  onMouseLeave={handleMouseLeave}
-                >
-                  {getSubCategories(category).map((subCat, index) => (
-                    <div
-                      key={index}
-                      className=" hover:bg-amber-100"
-                      onClick={() => setSubCategory(subCat)}
-                    >
-                      {subCat}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <></>
-              )}
-            </div>
+            {category && (
+              <Menu
+                className="bg-amber-100 p-2"
+                method={setSubCategory}
+                options={getSubCategories(category)}
+                currentPane={subCategory}
+              />
+            )}
             <button
               className="bg-amber-100 rounded-md font-bold h-16 p-2 w-full mt-2"
               onClick={console.log("User Complaint History")}
