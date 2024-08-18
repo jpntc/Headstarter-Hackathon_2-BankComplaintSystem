@@ -27,7 +27,7 @@ const Pane = () => {
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
-  const [userId, setUserId] = useState(-999);
+  const [userId, setUserId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState("");
   const [history, setHistory] = useState([]);
@@ -40,14 +40,6 @@ const Pane = () => {
       }
     });
   }, []);
-
-  const handleMouseEnter = () => {
-    setShowDiv(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowDiv(false);
-  };
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -84,7 +76,7 @@ const Pane = () => {
       );
       return;
     }
-    if (userId === -999) {
+    if (userId === '') {
       console.log("Error with the user id returned by firebase");
       return;
     }
@@ -127,7 +119,7 @@ const Pane = () => {
       const response = await fetch(endpoint);
       const data = await response.json();
       if (response.status === 200) {
-        console.log("history data", data)
+        console.log("history data", data);
         setHistory(data);
         setIsOpen(true);
       } else {
@@ -188,8 +180,9 @@ const Pane = () => {
           ></textarea>
         </div>
       </div>
+
       {isOpen && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 w-fit h-full">
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 w-full">
           <div className="bg-white rounded-lg shadow-lg p-4 relative max-w-lg w-full">
             <button
               className="absolute top-2 right-2 text-gray-600"
@@ -205,7 +198,10 @@ const Pane = () => {
                     <div>Main Type: {complaint.main_type}</div>
                     <div>Sub Type: {complaint.sub_type}</div>
                     <div>Created At: {complaint.created_at}</div>
-                    <div className="flex"><p>Description:</p> <p>{complaint.description} </p></div>
+                    <div className="flex">
+                      <p>Description:</p>
+                      <p>{complaint.description}</p>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -220,3 +216,5 @@ const Pane = () => {
 };
 
 export default Pane;
+
+
