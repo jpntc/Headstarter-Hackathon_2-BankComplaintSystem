@@ -9,12 +9,15 @@ import { onAuthStateChanged } from "firebase/auth";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isEmployee, setIsEmployee] = useState(false);
+  const [employees, setEmployees] = useState([]);
   const user = auth.currentUser;
 
   async function checkEmployee(uid) {
-    const result = await fetch("grab employee ID's");
+    const result = await fetch("http://localhost:5000/employees");
     const data = await result.json();
-    if (data.includes(user.uid)) {
+    const employees = data.map((employee) => employee.user_id);
+    console.log(employees);
+    if (employees.includes(uid)) {
       setIsEmployee(true);
     } else {
       setIsEmployee(false);
@@ -24,8 +27,10 @@ const Navbar = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
-      const uid = user.uid;
-      checkEmployee(uid);
+      if (user) {
+        const uid = user.uid;
+        checkEmployee(uid);
+      }
     });
   }, []);
 
@@ -39,16 +44,15 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="sticky p-2 flex justify-between w-full mb-20 border-b">
+    <nav className="p-5 sticky p-2 flex justify-between w-full mb-20">
       <div className="flex justify-between items-center">
         <Image
-          src="/images/logo.jpg"
+          src="https://framerusercontent.com/images/2P2MY4z5tS0r6jWMJhGeq0QQpOs.svg"
           alt="logo"
           height={100}
-          width={80}
+          width={100}
           className="rounded-full mr-2"
         />
-        <p className="text-lg md:text-xl font-extrabold">Complaint System</p>
       </div>
 
       <div className="flex justify-evenly items-center text-md md:text-lg font-bold">
