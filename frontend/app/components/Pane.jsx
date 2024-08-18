@@ -191,7 +191,7 @@ const Pane = () => {
               &times;
             </button>
             <h2 className="text-lg font-bold mb-4">Complaint History</h2>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/2 h-96  overflow-y-auto">
               {history.length > 0 ? (
                 history.map((complaint, index) => (
                   <div className="flex flex-col p-2 border-2 m-2" key={index}>
