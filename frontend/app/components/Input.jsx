@@ -19,7 +19,7 @@ const Input = () => {
             onChange={(e) => handleInput(e)}
           ></textarea>
           <button
-            className="bg-amber-100 rounded-md font-bold h-16 p-2"
+            className="bg-amber-100 rounded-md font-bold h-16 p-2 hover:bg-amber-300 duration-300 rounded-lg"
             onClick={() => {
               console.log(input);
             }}
