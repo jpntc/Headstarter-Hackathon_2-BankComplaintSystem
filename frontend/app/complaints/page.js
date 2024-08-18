@@ -22,41 +22,6 @@ const Complaints = () => {
   const [show, setShow] = useState(false);
   const [buttonName, setButtonName] = useState("");
   const [complaints, setComplaints] = useState([
-    {
-      userId: "test",
-      main_type: "test",
-      sub_type: "test",
-      description: "test",
-      created_at: "test",
-    },
-    {
-      userId: "Products",
-      main_type: "Products",
-      sub_type: "Products",
-      description: "Products",
-      created_at: "Products",
-    },
-    {
-      userId: "Solutions",
-      main_type: "Solutions",
-      sub_type: "Solutions",
-      description: "Solutions",
-      created_at: "Solutions",
-    },
-    {
-      userId: "Accounting",
-      main_type: "Accounting",
-      sub_type: "Accounting",
-      description: "Accounting",
-      created_at: "Accounting",
-    },
-    {
-      userId: "Integrations",
-      main_type: "Integrations",
-      sub_type: "Integrations",
-      description: "Integrations",
-      created_at: "Integrations",
-    },
   ]);
   const [filteredComplaints, setFilteredComplaints] = useState([]);
 
@@ -65,22 +30,23 @@ const Complaints = () => {
     setButtonName(name);
   }
 
-  //   async function updateComplaints() {
-  //     //Serverside function to grab all entries in complaints table
-  //     // const result = function to grab all entries
-  //     // setComplaints(dbComplaints);
-  //     try {
-  //       const response = await fetch("/api/complaints/history");
-  //       const data = await response.json();
-  //       setComplaints(data);
-  //     } catch (error) {
-  //       alert("Error fetching complaints");
-  //     }
-  //   }
+    async function updateComplaints() {
+      //Serverside function to grab all entries in complaints table
+      // const result = function to grab all entries
+      // setComplaints(dbComplaints);
+      try {
+        const response = await fetch("http://localhost:5000/api/complaints/employee/history");
+        const data = await response.json();
+        console.log(data);
+        setComplaints(data);
+      } catch (error) {
+        alert("Error fetching complaints");
+      }
+    }
 
-  //   useEffect(() => {
-  //     updateComplaints();
-  //   }, []);
+    useEffect(() => {
+      updateComplaints();
+    }, []);
 
   useEffect(() => {
     if (buttonName) {
@@ -95,7 +61,7 @@ const Complaints = () => {
       setFilteredComplaints(complaints);
     }
     console.log(buttonName);
-  }, [buttonName]);
+  }, [buttonName, complaints]);
   //when filter is selected, have useeffect function to change whenever state is updated from filter
   //    populate filteredComplaints with all complaints that pass filter criteria
   //    map filteredComplaints
