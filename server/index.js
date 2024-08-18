@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
@@ -13,6 +13,10 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
+});
+
+app.post("/home", (req, res) => {
+  res.send("Hello World");
 });
 
 app.get('/test', async (req, res) => {

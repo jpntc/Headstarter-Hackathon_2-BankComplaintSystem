@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Menu from "./Menu";
 import { onAuthStateChanged } from "firebase/auth";
-
+import { auth } from "../../firebase";
 const categories = ["Products", "Solutions", "Account", "Website"];
 
 const productProblems = [
@@ -22,21 +22,20 @@ const websiteProblems = ["Website"];
 
 const accountProblems = ["Email", "Password"];
 
-
 const Pane = () => {
   const [input, setInput] = useState("");
   const [showDiv, setShowDiv] = useState(false);
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
-  const [userId, setUserId] = useState(-999)
-  const user = auth.currentUser;
+  const [userId, setUserId] = useState(-999);
+  const [submitted, setSubmitted] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       const uid = user.uid;
-      setUser(uid)
+      setUserId(uid);
     });
-  }, []); 
+  }, []);
 
   const handleMouseEnter = () => {
     setShowDiv(true);
@@ -46,7 +45,7 @@ const Pane = () => {
     setShowDiv(false);
   };
 
-  const handleInput = (e,) => {
+  const handleInput = (e) => {
     setInput(e.target.value);
   };
 
@@ -80,18 +79,41 @@ const Pane = () => {
       );
       return;
     }
-    if(userID == -999){
-      console.log("Error with the user id returned by firebase")
-      return 
+    if (userId == -999) {
+      console.log("Error with the user id returned by firebase");
+      return;
+    }
+    console.log(userId);
+    const data = {
+      user_id: userId,
+      main_type: category,
+      sub_type: subCategory,
+      description: input,
+      created_at: dateNTime,
+    };
+    const endpoint = process.env.SERVER_ADDRESS + "/home";
+
+    try{
+      const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    if (response.status === 200){
+      const responseObj = await response.json()
+      setSubmitted("Submitted")
+      alert("Your complaint has been submitted.")
+      return
+    }else{
+      console.log(response.error)
+    }
+    }catch(error){
+      console.log("Error making the request to db: " + error)
     }
 
-    const request = {
-      userId,
-      category,
-      subCategory,
-      input,
-      dateNTime
-    };
   };
 
   return (
@@ -113,26 +135,28 @@ const Pane = () => {
               onMouseEnter={() => handleMouseEnter(category)}
             >
               {subCategory}
-              {showDiv && (
+              {showDiv && category ? (
                 <div
-                  className="bg-white absolute top-full shadow-lg p-4 justify-center max-h-56 overflow-x-auto border "
+                  className="bg-white absolute top-full shadow-lg p-4 justify-center max-h-56 overflow-x-auto border w-fit"
                   onMouseLeave={handleMouseLeave}
                 >
                   {getSubCategories(category).map((subCat, index) => (
                     <div
                       key={index}
-                      className="p-2 hover:bg-amber-100"
+                      className=" hover:bg-amber-100"
                       onClick={() => setSubCategory(subCat)}
                     >
                       {subCat}
                     </div>
                   ))}
                 </div>
+              ) : (
+                <></>
               )}
             </div>
             <button
               className="bg-amber-100 rounded-md font-bold h-16 p-2 w-full mt-2"
-              onClick={submitComplaint}
+              onClick={console.log("User Complaint History")}
             >
               Complaint History
             </button>
@@ -154,6 +178,12 @@ const Pane = () => {
             value={input}
           ></textarea>
         </div>
+      </div>
+      <div>
+        {/* {
+          submitted &&
+              <div className="absolute justify-center content-center p-2 bg-green-300">Your request has been submitted successfully</div>
+        } */}
       </div>
     </div>
   );
