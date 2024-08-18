@@ -15,8 +15,6 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
-
-
 app.get('/test', async (req, res) => {
     const user = await pool.query('SELECT * FROM users');
     res.json(user.rows[0])
@@ -69,11 +67,11 @@ app.post('/api/complaints', async (req, res) => {
 });
 
 app.get('/api/complaints/history', async (req, res) => {
-    const { userId, main_type, sub_type } = req.query;
+    const { user_id, main_type, sub_type } = req.query;
   
     try {
-      let query = 'SELECT * FROM complaints WHERE user_id = $1';
-      const queryParams = [userId];
+      let query = ("SELECT * FROM complaints WHERE user_id = $1");
+      const queryParams = [user_id];
   
       if (main_type) {
         query += ' AND main_type = $2';
@@ -86,10 +84,11 @@ app.get('/api/complaints/history', async (req, res) => {
       }
   
       query += ' ORDER BY created_at DESC';
-  
+      
       const historyRes = await pool.query(query, queryParams);
-      console.log(query, queryParams);
       res.json(historyRes.rows);
+
+      console.log(query, queryParams);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -97,7 +96,7 @@ app.get('/api/complaints/history', async (req, res) => {
   });
 
   app.get('/api/complaints/employee/history', async (req, res) => {
-    const { userId, main_type, sub_type } = req.query;
+    const { user_id, main_type, sub_type } = req.query;
   
     try {
       let query = 'SELECT * FROM complaints';
@@ -120,7 +119,7 @@ app.get('/api/complaints/history', async (req, res) => {
       }
   
       query += ' ORDER BY created_at DESC';
-      console.log(main_type, sub_type, userId, queryParams.length);
+      console.log(main_type, sub_type, user_id, queryParams.length);
       if (queryParams.length != 0) {
         const historyRes = await pool.query(query, queryParams);
         res.json(historyRes.rows);
