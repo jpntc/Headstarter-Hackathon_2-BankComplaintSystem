@@ -115,7 +115,8 @@ const Pane = () => {
 
   const getHistory = async () => {
     try {
-      const endpoint = `http://localhost:5000/api/complaints/history?user=${userId}`;
+      const endpoint = `http://localhost:5000/api/complaints/history?user_id=${userId}`;
+      console.log(endpoint);
       const response = await fetch(endpoint);
       const data = await response.json();
       if (response.status === 200) {
