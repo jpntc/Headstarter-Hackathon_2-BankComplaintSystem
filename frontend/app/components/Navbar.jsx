@@ -44,16 +44,15 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="sticky p-2 flex justify-between w-full mb-20 border-b">
+    <nav className="p-5 sticky p-2 flex justify-between w-full mb-20">
       <div className="flex justify-between items-center">
         <Image
-          src="/images/logo.jpg"
+          src="https://framerusercontent.com/images/2P2MY4z5tS0r6jWMJhGeq0QQpOs.svg"
           alt="logo"
           height={100}
-          width={80}
+          width={100}
           className="rounded-full mr-2"
         />
-        <p className="text-lg md:text-xl font-extrabold">Complaint System</p>
       </div>
 
       <div className="flex justify-evenly items-center text-md md:text-lg font-bold">
