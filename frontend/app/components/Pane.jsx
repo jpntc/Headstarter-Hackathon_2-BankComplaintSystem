@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Menu from "./Menu";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const categories = ["Products", "Solutions", "Account", "Website"];
 
@@ -22,21 +23,19 @@ const websiteProblems = ["Website"];
 
 const accountProblems = ["Email", "Password"];
 
-
 const Pane = () => {
   const [input, setInput] = useState("");
   const [showDiv, setShowDiv] = useState(false);
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
-  const [userId, setUserId] = useState(-999)
-  const user = auth.currentUser;
+  const [userId, setUserId] = useState(-999);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       const uid = user.uid;
-      setUser(uid)
+      setUserId(uid);
     });
-  }, []); 
+  }, []);
 
   const handleMouseEnter = () => {
     setShowDiv(true);
@@ -46,7 +45,7 @@ const Pane = () => {
     setShowDiv(false);
   };
 
-  const handleInput = (e,) => {
+  const handleInput = (e) => {
     setInput(e.target.value);
   };
 
@@ -80,9 +79,9 @@ const Pane = () => {
       );
       return;
     }
-    if(userID == -999){
-      console.log("Error with the user id returned by firebase")
-      return 
+    if (userID == -999) {
+      console.log("Error with the user id returned by firebase");
+      return;
     }
 
     const request = {
@@ -90,7 +89,7 @@ const Pane = () => {
       category,
       subCategory,
       input,
-      dateNTime
+      dateNTime,
     };
   };
 
