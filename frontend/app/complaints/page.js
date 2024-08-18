@@ -70,8 +70,8 @@ const Complaints = () => {
   //     // const result = function to grab all entries
   //     // setComplaints(dbComplaints);
   //     try {
-  //       const response = await fetch("api endpoint");
-  //       const data = response.json();
+  //       const response = await fetch("/api/complaints/history");
+  //       const data = await response.json();
   //       setComplaints(data);
   //     } catch (error) {
   //       alert("Error fetching complaints");
