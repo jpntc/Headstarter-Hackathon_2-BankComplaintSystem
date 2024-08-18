@@ -27,8 +27,10 @@ const Navbar = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
-      const uid = user.uid;
-      checkEmployee(uid);
+      if (user) {
+        const uid = user.uid;
+        checkEmployee(uid);
+      }
     });
   }, []);
 

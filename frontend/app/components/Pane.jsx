@@ -4,7 +4,6 @@ import Menu from "./Menu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 
-
 const categories = ["Products", "Solutions", "Account", "Website"];
 
 const productProblems = [
@@ -33,11 +32,12 @@ const Pane = () => {
 
   const [submitted, setSubmitted] = useState("");
 
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      const uid = user.uid;
-      setUserId(uid);
+      if (user) {
+        const uid = user.uid;
+        setUserId(uid);
+      }
     });
   }, []);
 
@@ -95,30 +95,30 @@ const Pane = () => {
       description: input,
       created_at: dateNTime,
     };
-    console.log(data)
+    console.log(data);
     const endpoint = process.env.SERVER_ADDRESS + "/home";
 
-    try{
+    try {
       const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
 
-    if (response.status === 200){
-      const responseObj = await response.json()
-      setSubmitted("Submitted")
-      alert("Your complaint has been submitted.")
-      return
-    }else{
-      console.log(response.error)
+      if (response.status === 200) {
+        const responseObj = await response.json();
+        setSubmitted("Submitted");
+        alert("Your complaint has been submitted.");
+        return;
+      } else {
+        console.log(response.error);
+      }
+    } catch (error) {
+      console.log("Error making the request to db: " + error);
     }
-    }catch(error){
-      console.log("Error making the request to db: " + error)
-    }
-    return
+    return;
   };
 
   return (
