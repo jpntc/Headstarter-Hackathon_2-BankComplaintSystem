@@ -51,12 +51,12 @@ app.post('/signup', async (req, res) => {
   });
 
 app.post('/api/complaints', async (req, res) => {
-  const { user_id, type, description } = req.body;
+  const { user_id, main_type, sub_type, description } = req.body.data;
 
   try {
     const complaintRes = await pool.query(
-      'INSERT INTO complaints (user_id, type, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [user_id, main_type, sub_type, description, created_at]
+      'INSERT INTO complaints (user_id, main_type, sub_type, description) VALUES ($1, $2, $3, $4) RETURNING *',
+      [user_id, main_type, sub_type, description]
     );
 
     res.json(complaintRes.rows[0]);
