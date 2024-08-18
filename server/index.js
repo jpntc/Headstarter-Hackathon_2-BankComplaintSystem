@@ -20,7 +20,7 @@ const pool = new Pool({
 app.get('/test', async (req, res) => {
     const user = await pool.query('SELECT * FROM users');
     res.json(user.rows[0])
-  
+})
 app.get('/employees', async (req, res) => {
     const user = await pool.query('SELECT * FROM employee');
     res.json(user.rows);
@@ -52,19 +52,20 @@ app.post('/signup', async (req, res) => {
   });
 
 app.post('/api/complaints', async (req, res) => {
-  const { userId, type, description } = req.body;
+  const { userId, type, description } = await req.body;
 
   try {
-    const complaintRes = await pool.query(
-      'INSERT INTO complaints (user_id, type, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [userId, main_type, sub_type, description, created_at]
-    );
+    // const complaintRes = await pool.query(
+    //   'INSERT INTO complaints (user_id, type, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    //   [userId, main_type, sub_type, description, created_at]
+    // );
 
-    res.json(complaintRes.rows[0]);
+    // res.json(complaintRes.rows[0]);
+    res.status(200).json("Hello World")
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+    // res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });  }
 });
 
 app.get('/api/complaints/history', async (req, res) => {
