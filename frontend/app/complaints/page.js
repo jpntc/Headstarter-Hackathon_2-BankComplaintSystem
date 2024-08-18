@@ -110,7 +110,7 @@ const Complaints = () => {
           </button>
         </div>
 
-        <div className="w-full h-full rounded-lg text-black">
+        <div className="flex w-full p-2 rounded-lg text-black items-center justify-center space-x-2 flex-wrap">
           {showGeneral && (
             <div className="w-full h-full flex justify-center space-x-8">
               <button
@@ -144,7 +144,7 @@ const Complaints = () => {
             </div>
           )}
           {showSpecific && (
-            <div className="flex w-full p-2 rounded-lg text-black items-center justify-center space-x-2 flex-wrap">
+            <div className="flex w-full rounded-lg text-black items-center justify-center space-x-2 flex-wrap">
               {problems.map((problem, index) => (
                 <button
                   onClick={setButton}
