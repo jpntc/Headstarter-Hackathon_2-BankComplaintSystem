@@ -1,25 +1,36 @@
-"use client"
-import React, {useState}  from 'react'
+"use client";
+import React, { useState } from "react";
 
 const Menu = ({ method, options, currentPane }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  return (
-    <div className="bg-blue-200 p-2 rounded-md h-fit min-w-fit text-nowrap"onClick={()=>setIsOpen(!isOpen)}>
-        {
-          isOpen?(
-            <div>
-              {
-                   options.map((option, index)=>(
-              <div className=" mb-2 text-sm border-black hover:bg-gray-200" key={index} onClick={()=>method(option)}>{option}</div>
-            ))
-              }
-            </div>
-         
-        ):<></>
-        }
-        {isOpen?(<div className="hidden">{currentPane}</div>): <div className="rounded-md font-bold w-fit">{currentPane}</div>}
-    </div>
-  )
-}
+  const [isOpen, setIsOpen] = useState(false);
 
-export default Menu
+  return (
+    <div
+      className="relative bg-white p-2 rounded-lg h-fit w-2/12 text-nowrap border-solid border-2 min-w-44 hover:bg-amber-200 duration-300 cursor-pointer"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <div className="rounded-md font-bold w-fit">{currentPane}</div>
+      {isOpen && (
+        <div
+          className="absolute top-full left-0 mt-2 bg-white shadow-lg border rounded z-50"
+          style={{ minWidth: "100%" }}
+        >
+          {options.map((option, index) => (
+            <div
+              className="p-2 text-sm hover:bg-gray-200 cursor-pointer"
+              key={index}
+              onClick={() => {
+                method(option);
+                setIsOpen(false);
+              }}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Menu;
