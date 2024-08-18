@@ -8,7 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-
+    user: 'postgres',
+    host: 'localhost',
+    database: 'TestDB',
+    password: '123w123w',
+    port: 5432,
 });
 
 
@@ -16,7 +20,8 @@ const pool = new Pool({
 app.get('/test', async (req, res) => {
     const user = await pool.query('SELECT * FROM users');
     res.json(user.rows[0])
-  
+});
+
 app.get('/employees', async (req, res) => {
     const user = await pool.query('SELECT * FROM employees');
     res.json(user.rows);
@@ -48,12 +53,12 @@ app.post('/signup', async (req, res) => {
   });
 
 app.post('/api/complaints', async (req, res) => {
-  const { userId, type, description } = req.body;
-
+  const { user_id, main_type, sub_type, description} = req.body.data;
+  console.log(req.body);
   try {
     const complaintRes = await pool.query(
       'INSERT INTO complaints (user_id, main_type, sub_type, description) VALUES ($1, $2, $3, $4) RETURNING *',
-      [userId, main_type, sub_type, description, created_at]
+      [user_id, main_type, sub_type, description]
     );
 
     res.json(complaintRes.rows[0]);
