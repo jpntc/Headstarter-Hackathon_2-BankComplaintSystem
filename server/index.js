@@ -15,6 +15,12 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
+
+
+app.get('/test', async (req, res) => {
+    const user = await pool.query('SELECT * FROM users');
+    res.json(user.rows[0])
+  
 app.get('/employees', async (req, res) => {
     const user = await pool.query('SELECT * FROM employee');
     res.json(user.rows);
