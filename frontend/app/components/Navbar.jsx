@@ -19,7 +19,7 @@ const problems = [
 
 const solutions = ["E-commerce", "Small Business", "Enterprise Business"];
 
-const Navbar = ({stateFunction}) => {
+const Navbar = ({ stateFunction }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDiv, setShowDiv] = useState(false);
   const [option, setOption] = useState("");
@@ -82,6 +82,8 @@ const Navbar = ({stateFunction}) => {
         </p>
       </div>
       <div className="flex justify-evenly items-center text-md md:text-lg font-bold">
+        {/* If the user is an admin, show this */}
+        <Link href="/complaints">Complaints</Link>
         {!user ? (
           <Link
             className="mr-2 hover:bg-amber-200 duration-300 rounded-lg p-2"
