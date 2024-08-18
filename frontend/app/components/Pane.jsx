@@ -27,7 +27,7 @@ const Pane = () => {
   const [input, setInput] = useState("");
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState("");
   const [history, setHistory] = useState([]);
@@ -76,7 +76,7 @@ const Pane = () => {
       );
       return;
     }
-    if (userId === '') {
+    if (userId === "") {
       console.log("Error with the user id returned by firebase");
       return;
     }
@@ -136,11 +136,11 @@ const Pane = () => {
 
   return (
     <div className="p-2 mx-2 flex flex-col h-full w-full rounded-lg">
-      <p className="text-xl md:text-2xl font-bold text-center mb-8">
+      <p className="text-xl md:text-2xl font-bold text-center mb-4">
         File a Complaint
       </p>
-      <div className="w-full border-4 rounded-md border-amber-300 flex h-96 p-2">
-        <div className="flex flex-col w-1/4 h-full justify-between p-8">
+      <div className="w-full border-4 rounded-md border-neutral-300 flex h-96 border-solid border-2">
+        <div className="flex flex-col min-w-1/4 h-full justify-between p-8">
           <div className="flex flex-col">
             <Menu
               method={setCategory}
@@ -157,7 +157,7 @@ const Pane = () => {
               />
             )}
             <button
-              className="bg-amber-100 rounded-md font-bold h-16 p-2 w-full mt-2"
+              className="bg-white rounded-md font-bold h-16 p-2 w-full mt-2 border-solid border-2 hover:bg-amber-200 duration-300 min-w-44"
               onClick={getHistory}
             >
               Complaint History
@@ -165,7 +165,7 @@ const Pane = () => {
           </div>
 
           <button
-            className="bg-amber-100 rounded-md font-bold h-16 p-2 w-full mt-2"
+            className="bg-white rounded-md font-bold h-16 p-2 w-full mt-2 border-solid border-2 hover:bg-amber-200 duration-300 min-w-44"
             onClick={submitComplaint}
           >
             Submit
@@ -173,7 +173,7 @@ const Pane = () => {
         </div>
         <div className="flex flex-col w-full h-full">
           <textarea
-            className="overflow-y-auto w-full h-full mx-2 rounded-sm border-solid border-2 p-2"
+            className="overflow-y-auto w-full h-full rounded-sm border-solid border-2 p-2"
             type="text"
             placeholder={"Enter a complaint to be processed here."}
             onChange={handleInput}
@@ -217,5 +217,3 @@ const Pane = () => {
 };
 
 export default Pane;
-
-
