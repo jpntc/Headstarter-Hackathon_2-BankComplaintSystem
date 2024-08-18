@@ -9,12 +9,15 @@ import { onAuthStateChanged } from "firebase/auth";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isEmployee, setIsEmployee] = useState(false);
+  const [employees, setEmployees] = useState([]);
   const user = auth.currentUser;
 
   async function checkEmployee(uid) {
-    const result = await fetch("grab employee ID's");
+    const result = await fetch("http://localhost:5000/employees");
     const data = await result.json();
-    if (data.includes(user.uid)) {
+    const employees = data.map((employee) => employee.user_id);
+    console.log(employees);
+    if (employees.includes(uid)) {
       setIsEmployee(true);
     } else {
       setIsEmployee(false);
