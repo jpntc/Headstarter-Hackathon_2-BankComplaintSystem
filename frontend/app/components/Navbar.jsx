@@ -39,13 +39,28 @@ const Navbar = () => {
 
       <div className="flex justify-evenly items-center text-md md:text-lg font-bold">
         {!user ? (
-          <Link className="mr-2" href="/login">
+          <Link
+            className="mr-2 hover:bg-amber-200 duration-300 rounded-lg p-2"
+            href="/login"
+          >
             Login
           </Link>
         ) : (
-          <button onClick={handleLogout}>Logout</button>
+          <button
+            onClick={handleLogout}
+            className="hover:bg-amber-200 duration-300 rounded-lg p-2"
+          >
+            Logout
+          </button>
         )}
-        {!user && <Link href="/signup">SignUp</Link>}
+        {!user && (
+          <Link
+            href="/signup"
+            className="hover:bg-amber-200 duration-300 rounded-lg p-2"
+          >
+            SignUp
+          </Link>
+        )}
       </div>
 
     </nav>

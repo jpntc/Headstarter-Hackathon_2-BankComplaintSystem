@@ -30,7 +30,7 @@ function Login() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-amber-50">
-      <div className="flex flex-col w-3/12 items-center bg-white rounded-full p-10 border-solid border-2 text-black">
+      <div className="flex flex-col w-3/12 min-w-96 items-center bg-white rounded-full p-10 border-solid border-2 text-black">
         <header className="text-4xl mb-10 font-medium">Login Page</header>
         <form className="flex flex-col items-center" onSubmit={handleSubmit}>
           <input
@@ -45,7 +45,7 @@ function Login() {
             value={password}
             onChange={handlePassword}
           ></input>
-          <button className="bg-amber-100 rounded-lg mt-2 w-4/12 border-solid border-2">
+          <button className="bg-amber-100 rounded-lg mt-2 w-4/12 border-solid border-2 hover:bg-amber-300 duration-300 rounded-lg">
             Submit
           </button>
         </form>
