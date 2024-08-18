@@ -28,7 +28,7 @@ const Pane = () => {
   const [showDiv, setShowDiv] = useState(false);
   const [category, setCategory] = useState("Problem Category");
   const [subCategory, setSubCategory] = useState("Problem Type");
-  const [userId, setUserId] = useState(-999);
+  const [userId, setUserId] = useState('');
 
   const [submitted, setSubmitted] = useState("");
 
@@ -96,7 +96,7 @@ const Pane = () => {
       created_at: dateNTime,
     };
     console.log(data);
-    const endpoint = process.env.SERVER_ADDRESS + "/home";
+    const endpoint = 'http://localhost:5000/api/complaints';
 
     try {
       const response = await fetch(endpoint, {
